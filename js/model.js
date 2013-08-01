@@ -2,32 +2,39 @@ var App = App || {};
 
 (function(A) {
 
+    "use strict";
+
     var Model = function() {
 
         A.accessories.mixin(this, A.accessories, 'publish', 'subscribe', 'uuid');
+        this.loadData(this.onData.bind(this), this.onFailure.bind(this));
+        this.shoppingList = [];
+    };
 
-        this.shoppingList = [
-            {
-                id : '1',
-                obj : 'carrot'
-            },
-            {
-                id : '88',
-                obj : 'pears'
-            },
-            {
-                id: '2',
-                obj : 'milk'
-            },
-            {
-                id : '3',
-                obj : 'bread'
-            },
-            {
-                id : 'o',
-                obj : 'fish'
+    Model.prototype.loadData = function(success, failure) {
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                req.status === 200 ?
+                    success(req.response) : failure(req.status);
             }
-        ];
+        };
+        req.open("GET", "data/products.json", true);
+        req.send();
+    };
+
+    Model.prototype.onData = function(rawData) {
+        var data = JSON.parse(rawData),
+            l = data.products.length - 1;
+        while (l >= 0) {
+            this.shoppingList.push(data.products[l]);
+            l--;
+        }
+        this.publish('onData');
+    };
+
+    Model.prototype.onFailure = function(status) {
+        console.warn('cannot load data, status is ', status);
     };
 
     Model.prototype.add = function(obj) {

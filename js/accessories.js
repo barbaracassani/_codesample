@@ -2,6 +2,8 @@ var App = App || {};
 
 (function(A){
 
+    "use strict";
+
     A.accessories = {
         mixin : function() {
             if (arguments.length < 2) {

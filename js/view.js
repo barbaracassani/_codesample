@@ -2,6 +2,8 @@ var App = App || {};
 
 (function(A) {
 
+    "use strict";
+
     var View = function(config) {
 
         A.accessories.mixin(this, A.accessories, 'publish', 'subscribe');
@@ -11,6 +13,7 @@ var App = App || {};
         this.el = document.getElementById(config.el);
         this.listEl = document.getElementById(config.listEl);
 
+        this.model.subscribe('onData', this.init, this);
         this.model.subscribe('add', this.onAdd, this);
         this.model.subscribe('remove', this.onRemove, this);
 
