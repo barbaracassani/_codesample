@@ -6,7 +6,7 @@ var App = App || {};
 
     A.accessories = {
         mixin : function() {
-            if (arguments.length < 2) {
+            if (arguments.length < 3) {
                 throw Error("This mixin expect at least 3 arguments, receiver, augmentator and a method name");
             }
 
