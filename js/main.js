@@ -12,6 +12,6 @@ var App = App || {};
         });
     };
 
-    App.Main = Main;
+    A.Main = Main;
 
 })(App);
