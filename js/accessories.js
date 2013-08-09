@@ -7,7 +7,7 @@ var App = App || {};
     A.accessories = {
         mixin : function() {
             if (arguments.length < 2) {
-                throw Error("This mixin expect at least 2 arguments, receiver and augmentator");
+                throw Error("This mixin expect at least 3 arguments, receiver, augmentator and a method name");
             }
 
             var args = Array.prototype.slice.apply(arguments),
